@@ -18,6 +18,25 @@ HaberlerPlus, çeşitli haber kaynaklarından haber başlıklarını ve URL'leri
 
 ## Kurulum
 
+### Docker ile Kurulum
+
+Docker yüklü ise, aşağıdaki komutlarla uygulamayı çalıştırabilirsiniz:
+
+```bash
+# Docker imajını oluşturun
+docker build -t news .
+
+# Uygulamayı çalıştırın
+docker run -it --rm news
+```
+
+Veya Docker Hub'dan doğrudan çekebilirsiniz:
+
+```bash
+docker pull furkandogmus/news
+docker run -it --rm furkandogmus/news
+```
+
 ### Doğrudan Kurulum (Go Kullanıcıları İçin)
 
 Go yüklü ise, aşağıdaki komutla doğrudan kurulum yapabilirsiniz:

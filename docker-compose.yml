@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  news:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: news
+    container_name: news
+    stdin_open: true  # Keep STDIN open
+    tty: true         # Allocate a pseudo-TTY
+    restart: "no"     # Don't restart automatically 
