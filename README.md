@@ -7,6 +7,8 @@ HaberlerPlus, çeşitli haber kaynaklarından haber başlıklarını ve URL'leri
 1. **GZT.com** - Orijinal haber kaynağı
 2. **Hurriyet.com.tr** - Hürriyet gazetesi web sitesi
 3. **Sozcu.com.tr** - Sözcü gazetesi web sitesi
+4. **Milliyet.com.tr** - Milliyet gazetesi web sitesi
+5. **Haberler.com** - Haberler.com haber portalı
 
 ## Kurulum
 
@@ -40,7 +42,7 @@ HaberlerPlus, çeşitli haber kaynaklarından haber başlıklarını ve URL'leri
    haberlerplus
    ```
 
-2. Haber kaynağını seçin (1-3 arası bir sayı girin).
+2. Haber kaynağını seçin (1-5 arası bir sayı girin).
 3. Seçtiğiniz haber kaynağı için kategori seçin.
 4. Haberleriniz gösterilecektir!
 
