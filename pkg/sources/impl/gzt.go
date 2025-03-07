@@ -22,7 +22,7 @@ func (g *GztSource) Name() string {
 
 // Categories returns the available categories for this news source
 func (g *GztSource) Categories() []string {
-	return []string{"POLITIKA", "DUNYA", "EKONOMI", "BILIM", "GUNCEL", "AKTUEL-KULTUR", "SAGLIK"}
+	return []string{"POLITIKA", "DUNYA", "EKONOMI", "BILIM", "GUNCEL", "SAGLIK"}
 }
 
 // FetchNews fetches news items for the specified category
@@ -58,8 +58,3 @@ func (g *GztSource) FetchNews(categoryIndex int) ([]NewsItem, error) {
 	return newsItems, nil
 }
 
-// NewsItem represents a single news item
-type NewsItem struct {
-	Title string
-	URL   string
-}

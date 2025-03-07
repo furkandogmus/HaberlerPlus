@@ -22,7 +22,7 @@ func (s *SozcuSource) Name() string {
 
 // Categories returns the available categories for this news source
 func (s *SozcuSource) Categories() []string {
-	return []string{"GÜNDEM", "DÜNYA", "EKONOMİ", "SPOR", "FİNANS", "YAŞAM", "SAĞLIK"}
+	return []string{"GÜNDEM", "DÜNYA", "EKONOMİ", "SPOR", "FİNANS","SAĞLIK"}
 }
 
 // FetchNews fetches news items for the specified category
@@ -38,7 +38,6 @@ func (s *SozcuSource) FetchNews(categoryIndex int) ([]NewsItem, error) {
 		"EKONOMİ": "ekonomi",
 		"SPOR":    "spor",
 		"FİNANS":  "finans",
-		"YAŞAM":   "yasam",
 		"SAĞLIK":  "saglik",
 	}
 

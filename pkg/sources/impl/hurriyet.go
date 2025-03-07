@@ -22,7 +22,7 @@ func (h *HurriyetSource) Name() string {
 
 // Categories returns the available categories for this news source
 func (h *HurriyetSource) Categories() []string {
-	return []string{"GÜNDEM", "DÜNYA", "EKONOMİ", "SPOR", "TEKNOLOJİ", "SAĞLIK", "YAŞAM"}
+	return []string{"GÜNDEM", "DÜNYA", "EKONOMİ", "TEKNOLOJİ", "SAĞLIK", "YAŞAM"}
 }
 
 // FetchNews fetches news items for the specified category
@@ -36,7 +36,7 @@ func (h *HurriyetSource) FetchNews(categoryIndex int) ([]NewsItem, error) {
 		"GÜNDEM":    "gundem",
 		"DÜNYA":     "dunya",
 		"EKONOMİ":   "ekonomi",
-		"SPOR":      "spor",
+	
 		"TEKNOLOJİ": "teknoloji",
 		"SAĞLIK":    "saglik",
 		"YAŞAM":     "yasam",

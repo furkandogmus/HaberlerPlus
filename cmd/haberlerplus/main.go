@@ -9,8 +9,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/furkandogmus/haberlerplus/pkg/sources"
-	"github.com/furkandogmus/haberlerplus/pkg/utils"
+	"github.com/furkandogmus/HaberlerPlus/pkg/sources"
+	"github.com/furkandogmus/HaberlerPlus/pkg/utils"
 )
 
 func main() {

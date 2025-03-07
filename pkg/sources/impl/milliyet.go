@@ -22,7 +22,7 @@ func (m *MilliyetSource) Name() string {
 
 // Categories returns the available categories for this news source
 func (m *MilliyetSource) Categories() []string {
-	return []string{"GÜNDEM", "DÜNYA", "EKONOMİ", "SPOR", "TEKNOLOJİ", "SAĞLIK", "YAŞAM"}
+	return []string{"GÜNDEM", "DÜNYA", "EKONOMİ", "SPOR", "TEKNOLOJİ"}
 }
 
 // FetchNews fetches news items for the specified category
@@ -38,8 +38,6 @@ func (m *MilliyetSource) FetchNews(categoryIndex int) ([]NewsItem, error) {
 		"EKONOMİ":   "ekonomi",
 		"SPOR":      "spor",
 		"TEKNOLOJİ": "teknoloji",
-		"SAĞLIK":    "saglik",
-		"YAŞAM":     "yasam",
 	}
 
 	category := categories[categoryIndex]

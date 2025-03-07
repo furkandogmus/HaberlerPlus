@@ -22,5 +22,9 @@ func GetAllSources() []NewsSource {
 		NewSozcuSource(),
 		NewMilliyetSource(),
 		NewHaberlerComSource(),
+		// New RSS-based sources
+		NewCNNTurkSource(),
+		NewNTVSource(),
+		NewHaberturkSource(),
 	}
 }
