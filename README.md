@@ -12,9 +12,9 @@ HaberlerPlus, çeşitli haber kaynaklarından haber başlıklarını ve URL'leri
 5. **Haberler.com** - Haberler.com haber portalı
 
 ### RSS Tabanlı Kaynaklar
-6. **CNN Türk** - CNN Türk RSS beslemeleri
-7. **NTV** - NTV RSS beslemeleri
-8. **Habertürk** - Habertürk RSS beslemeleri
+6. **CNN Türk** - CNN Türk RSS beslemeleri (GÜNDEM, DÜNYA, EKONOMİ, SPOR, SAĞLIK, TEKNOLOJİ)
+7. **NTV** - NTV RSS beslemeleri (SON DAKİKA, GÜNDEM, DÜNYA, EKONOMİ, SPOR, SAĞLIK, TEKNOLOJİ)
+8. **Habertürk** - Habertürk RSS beslemeleri (GÜNDEM, DÜNYA, EKONOMİ, SPOR, SAĞLIK, TEKNOLOJİ)
 
 ## Kurulum
 
@@ -33,19 +33,19 @@ HaberlerPlus, çeşitli haber kaynaklarından haber başlıklarını ve URL'leri
 
 3. Projeyi derleyin:
    ```bash
-   go build -o haberlerplus ./cmd/haberlerplus
+   go build -o bin/haberlerplus ./cmd/haberlerplus
    ```
 
-4. Binary dosyasını sistem yoluna kopyalayın:
+4. Binary dosyasını sistem yoluna kopyalayın (opsiyonel):
    ```bash
-   sudo cp ./haberlerplus /usr/local/bin/haberlerplus
+   sudo cp ./bin/haberlerplus /usr/local/bin/haberlerplus
    ```
 
 ## Kullanım
 
 1. Programı çalıştırın:
    ```bash
-   haberlerplus
+   ./bin/haberlerplus
    ```
 
 2. Haber kaynağını seçin (1-8 arası bir sayı girin).
@@ -66,6 +66,22 @@ HaberlerPlus, çeşitli haber kaynaklarından haber başlıklarını ve URL'leri
 - `-v`: Versiyon bilgisini gösterir
 - `-d`: Debug modunda çalıştırır
 
+## Desteklenen Kategoriler
+
+Her haber kaynağı için desteklenen kategoriler:
+
+### HTML Tabanlı Kaynaklar
+- **GZT.com**: GÜNDEM, DÜNYA, EKONOMİ, SPOR, TEKNOLOJİ
+- **Hurriyet.com.tr**: GÜNDEM, DÜNYA, EKONOMİ, SPOR, TEKNOLOJİ
+- **Sozcu.com.tr**: GÜNDEM, DÜNYA, EKONOMİ, SPOR, SAĞLIK, TEKNOLOJİ
+- **Milliyet.com.tr**: GÜNDEM, DÜNYA, EKONOMİ, SPOR, TEKNOLOJİ
+- **Haberler.com**: GÜNDEM, DÜNYA, EKONOMİ, SPOR, SAĞLIK, TEKNOLOJİ
+
+### RSS Tabanlı Kaynaklar
+- **CNN Türk**: GÜNDEM, DÜNYA, EKONOMİ, SPOR, SAĞLIK, TEKNOLOJİ
+- **NTV**: SON DAKİKA, GÜNDEM, DÜNYA, EKONOMİ, SPOR, SAĞLIK, TEKNOLOJİ
+- **Habertürk**: GÜNDEM, DÜNYA, EKONOMİ, SPOR, SAĞLIK, TEKNOLOJİ
+
 ## Katkıda Bulunma
 
 Her türlü katkıya açığız! Yeni özellikler eklemek, hata düzeltmek veya mevcut kodu geliştirmek isterseniz, lütfen katkıda bulunun.
@@ -80,10 +96,20 @@ Yeni bir haber kaynağı eklemek için:
 
 2. RSS tabanlı kaynaklar için:
    - `pkg/sources/impl` dizininde yeni bir RSS kaynak dosyası oluşturun.
-   - `RSSSource` yapısını kullanarak yeni bir kaynak oluşturun.
+   - `RSSSource` yapısını kullanarak yeni bir kaynak oluşturun veya kendi özel yapınızı oluşturun.
 
 3. `pkg/sources/factory.go` dosyasına yeni bir factory fonksiyonu ekleyin.
 4. `pkg/sources/sources.go` dosyasındaki `GetAllSources()` fonksiyonuna yeni kaynağınızı ekleyin.
+
+## Test Etme
+
+Tüm haber kaynaklarını test etmek için:
+
+```bash
+./scripts/test_all_sources.sh
+```
+
+Bu script, tüm haber kaynaklarını ve kategorilerini test eder ve sonuçları gösterir.
 
 ## Lisans
 
