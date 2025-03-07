@@ -13,7 +13,6 @@ RUN go mod download
 # Copy the source code
 COPY . .
 
-
 # Build the application
 RUN CGO_ENABLED=0 GOOS=linux go build -o /news cmd/news/main.go
 
@@ -25,6 +24,3 @@ RUN apk --no-cache add ca-certificates
 
 # Copy the binary from the builder stage
 COPY --from=builder /news /usr/local/bin/news
-
-# Set the entrypoint
-ENTRYPOINT ["news"] 

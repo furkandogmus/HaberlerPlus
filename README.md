@@ -36,11 +36,18 @@ Otomatik seçim yapmak için (örneğin CNN Türk GÜNDEM kategorisi için):
 printf "6\n1\n" | docker run -i --rm news
 ```
 
-Veya Docker Hub'dan doğrudan çekebilirsiniz:
+Veya hazır Docker imajlarını kullanabilirsiniz:
 
+#### Docker Hub'dan:
 ```bash
-docker pull furkandogmus/news
+docker pull furkandogmus/news:latest
 docker run -it --rm furkandogmus/news
+```
+
+#### GitHub Container Registry'den:
+```bash
+docker pull ghcr.io/furkandogmus/haberlerplus:latest
+docker run -it --rm ghcr.io/furkandogmus/haberlerplus
 ```
 
 ### Doğrudan Kurulum (Go Kullanıcıları İçin)

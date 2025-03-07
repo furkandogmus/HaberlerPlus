@@ -1,19 +1,36 @@
 version: '3'
 
 services:
-  news:
+  # Yerel build ile çalıştırma
+  news-local:
     build:
       context: .
       dockerfile: Dockerfile
-    image: news
-    container_name: news
+    image: news-local
+    container_name: news-local
     stdin_open: true  # Keep STDIN open
     tty: true         # Allocate a pseudo-TTY
     restart: "no"     # Don't restart automatically
 
-  # Example of running with predefined input (CNN Türk GÜNDEM)
+  # Docker Hub'dan çekme
+  news-dockerhub:
+    image: furkandogmus/news:latest
+    container_name: news-dockerhub
+    stdin_open: true
+    tty: true
+    restart: "no"
+
+  # GitHub Container Registry'den çekme
+  news-github:
+    image: ghcr.io/furkandogmus/haberlerplus:latest
+    container_name: news-github
+    stdin_open: true
+    tty: true
+    restart: "no"
+
+  # Otomatik seçim ile çalıştırma (CNN Türk GÜNDEM)
   cnnturk-gundem:
-    image: news
+    image: news-local
     container_name: news-cnnturk-gundem
     stdin_open: true
     tty: false
