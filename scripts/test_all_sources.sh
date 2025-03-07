@@ -5,9 +5,9 @@
 
 echo "Building HaberlerPlus..."
 cd "$(dirname "$0")/.."
-go build -o bin/haberlerplus ./cmd/haberlerplus
+go build -o bin/news ./cmd/news
 
-if [ ! -f bin/haberlerplus ]; then
+if [ ! -f bin/news ]; then
     echo "Error: Failed to build HaberlerPlus"
     exit 1
 fi
@@ -20,17 +20,17 @@ test_source() {
     local category=$2
     
     echo "Testing source $source, category $category..."
-    printf "$source\n$category\n" | timeout 10s ./bin/haberlerplus -d > /tmp/haberlerplus_test_output.txt 2>&1
+    printf "$source\n$category\n" | timeout 10s ./bin/news -d > /tmp/news_test_output.txt 2>&1
     
     # Check if there was an error
-    if grep -q "error" /tmp/haberlerplus_test_output.txt; then
+    if grep -q "error" /tmp/news_test_output.txt; then
         echo "⚠️ Warning: Error detected, skipping category"
         return 2
     fi
     
     # Check if any news items were found
-    if grep -q "kategorisinden haberler:" /tmp/haberlerplus_test_output.txt; then
-        news_count=$(grep -c "http" /tmp/haberlerplus_test_output.txt)
+    if grep -q "kategorisinden haberler:" /tmp/news_test_output.txt; then
+        news_count=$(grep -c "http" /tmp/news_test_output.txt)
         if [ $news_count -gt 0 ]; then
             echo "✅ Success: Found $news_count news items"
             return 0
@@ -55,15 +55,15 @@ echo "=== Testing all categories for each source ==="
 # Test all categories for each source
 for source in {1..8}; do
     # Get source name
-    source_name=$(printf "$source\n1\n" | timeout 5s ./bin/haberlerplus -d 2>/dev/null | grep -A 1 "Haber kaynağı numarası girin:" | tail -n 1 | cut -d' ' -f1)
+    source_name=$(printf "$source\n1\n" | timeout 5s ./bin/news -d 2>/dev/null | grep -A 1 "Haber kaynağı numarası girin:" | tail -n 1 | cut -d' ' -f1)
     if [ -z "$source_name" ]; then
         source_name="Unknown"
     fi
     echo "Source $source ($source_name):"
     
     # Get the number of categories for this source
-    printf "$source\n1\n" | timeout 5s ./bin/haberlerplus -d > /tmp/haberlerplus_categories.txt 2>&1
-    category_count=$(grep -A 20 "Kategorileri:" /tmp/haberlerplus_categories.txt | grep -B 20 "Kategori numarası girin:" | grep -v "Kategorileri:" | grep -v "Kategori numarası girin:" | wc -l)
+    printf "$source\n1\n" | timeout 5s ./bin/news -d > /tmp/news_categories.txt 2>&1
+    category_count=$(grep -A 20 "Kategorileri:" /tmp/news_categories.txt | grep -B 20 "Kategori numarası girin:" | grep -v "Kategorileri:" | grep -v "Kategori numarası girin:" | wc -l)
     
     if [ $category_count -eq 0 ]; then
         category_count=8  # Default if we can't determine

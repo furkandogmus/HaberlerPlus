@@ -5,6 +5,7 @@
 *.so
 *.dylib
 bin/
+news
 haberlerplus
 
 # Test binary, built with `go test -c`

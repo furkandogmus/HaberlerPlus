@@ -18,6 +18,25 @@ HaberlerPlus, çeşitli haber kaynaklarından haber başlıklarını ve URL'leri
 
 ## Kurulum
 
+### Doğrudan Kurulum (Go Kullanıcıları İçin)
+
+Go yüklü ise, aşağıdaki komutla doğrudan kurulum yapabilirsiniz:
+
+```bash
+go install github.com/furkandogmus/HaberlerPlus/cmd/news@latest
+```
+
+Bu komut, uygulamayı `$GOPATH/bin` dizinine kuracaktır. Bu dizinin PATH'inizde olduğundan emin olun.
+
+### Önceden Derlenmiş Binary İndirme
+
+Önceden derlenmiş binary dosyalarını [Releases](https://github.com/furkandogmus/HaberlerPlus/releases) sayfasından indirebilirsiniz. İndirdiğiniz binary dosyasını çalıştırılabilir yapın ve PATH'inizde olan bir dizine kopyalayın:
+
+```bash
+chmod +x news
+sudo mv news /usr/local/bin/
+```
+
 ### Kaynak Koddan Derleme
 
 1. Projeyi klonlayın:
@@ -33,32 +52,24 @@ HaberlerPlus, çeşitli haber kaynaklarından haber başlıklarını ve URL'leri
 
 3. Projeyi derleyin:
    ```bash
-   go build -o bin/haberlerplus ./cmd/haberlerplus
+   go build -o bin/news ./cmd/news
    ```
 
 4. Binary dosyasını sistem yoluna kopyalayın (opsiyonel):
    ```bash
-   sudo cp ./bin/haberlerplus /usr/local/bin/haberlerplus
+   sudo cp ./bin/news /usr/local/bin/news
    ```
 
 ## Kullanım
 
 1. Programı çalıştırın:
    ```bash
-   ./bin/haberlerplus
+   news
    ```
 
 2. Haber kaynağını seçin (1-8 arası bir sayı girin).
 3. Seçtiğiniz haber kaynağı için kategori seçin.
 4. Haberleriniz gösterilecektir!
-
-## Özellikler
-
-- Birden fazla haber kaynağı desteği (HTML ve RSS tabanlı)
-- Kategori bazlı haber görüntüleme
-- Renkli terminal çıktısı
-- Kullanıcı dostu arayüz
-- Reklamsız ve hızlı haber erişimi
 
 ## Komut Satırı Seçenekleri
 
@@ -81,6 +92,43 @@ Her haber kaynağı için desteklenen kategoriler:
 - **CNN Türk**: GÜNDEM, DÜNYA, EKONOMİ, SPOR, SAĞLIK, TEKNOLOJİ
 - **NTV**: SON DAKİKA, GÜNDEM, DÜNYA, EKONOMİ, SPOR, SAĞLIK, TEKNOLOJİ
 - **Habertürk**: GÜNDEM, DÜNYA, EKONOMİ, SPOR, SAĞLIK, TEKNOLOJİ
+
+## Geliştirici Bilgileri
+
+### Kütüphane Olarak Kullanım
+
+HaberlerPlus'ı kendi Go projelerinizde kütüphane olarak kullanabilirsiniz:
+
+```go
+package main
+
+import (
+    "fmt"
+    "github.com/furkandogmus/HaberlerPlus/pkg/sources"
+)
+
+func main() {
+    // Tüm haber kaynaklarını al
+    allSources := sources.GetAllSources()
+    
+    // İlk kaynağı seç
+    source := allSources[0]
+    
+    // Kategorileri göster
+    fmt.Printf("Kategoriler: %v\n", source.Categories())
+    
+    // İlk kategoriden haberleri getir
+    news, err := source.FetchNews(0)
+    if err != nil {
+        panic(err)
+    }
+    
+    // Haberleri göster
+    for _, item := range news {
+        fmt.Printf("%s: %s\n", item.Title, item.URL)
+    }
+}
+```
 
 ## Katkıda Bulunma
 
