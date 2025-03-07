@@ -96,11 +96,9 @@ func main() {
 
 	// Display the news
 	fmt.Printf("%s%s - %s kategorisinden haberler:%s\n", utils.Green, selectedSource.Name(), categories[categoryNum-1], utils.Reset)
-	
-	
+
 	if len(newsItems) == 0 {
-		
-		
+		fmt.Println("Bu kategoride haber bulunamadı.")
 		return
 	}
 
