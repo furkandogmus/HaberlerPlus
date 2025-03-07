@@ -55,18 +55,15 @@ func (c *CNNTurkSource) FetchNews(categoryIndex int) ([]NewsItem, error) {
 	}
 
 	if categoryIndex < 1 || categoryIndex > len(c.categories) {
-		fmt.Printf("Debug: Invalid category index: %d, returning empty results\n", categoryIndex)
 		return []NewsItem{}, nil
 	}
 
 	category := c.categories[categoryIndex-1]
 	feedURL, ok := c.feedURLs[category]
 	if !ok {
-		fmt.Printf("Debug: No feed URL for category: %s, returning empty results\n", category)
 		return []NewsItem{}, nil
 	}
 
-	fmt.Printf("Debug: Fetching RSS feed from URL: %s\n", feedURL)
 
 	// Create HTTP client with timeout
 	client := &http.Client{
@@ -76,33 +73,27 @@ func (c *CNNTurkSource) FetchNews(categoryIndex int) ([]NewsItem, error) {
 	// Fetch the feed
 	resp, err := client.Get(feedURL)
 	if err != nil {
-		fmt.Printf("Debug: Error fetching feed: %v, returning empty results\n", err)
 		return []NewsItem{}, nil
 	}
 	defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		fmt.Printf("Debug: Error reading response body: %v, returning empty results\n", err)
 		return []NewsItem{}, nil
 	}
 
-	fmt.Printf("Debug: Received %d bytes of data\n", len(body))
-
+	
 	// Try to parse as RSS
 	var rss RSS
 	err = xml.Unmarshal(body, &rss)
 	if err != nil {
-		fmt.Printf("Debug: Failed to parse as RSS: %v\n", err)
 		return []NewsItem{}, nil
 	}
 
 	if len(rss.Channel.Items) == 0 {
-		fmt.Printf("Debug: No items found in RSS feed\n")
 		return []NewsItem{}, nil
 	}
 
-	fmt.Printf("Debug: Successfully parsed as RSS, found %d items\n", len(rss.Channel.Items))
 	
 	// Process RSS items
 	maxItems := 30
@@ -161,12 +152,8 @@ func (c *CNNTurkSource) FetchNews(categoryIndex int) ([]NewsItem, error) {
 			URL:   url,
 		})
 		
-		if i < 3 {
-			fmt.Printf("Debug: Item %d: Title=%s, URL=%s\n", i, title, url)
-		}
 	}
 	
-	fmt.Printf("Debug: Found %d news items\n", len(newsItems))
 	return newsItems, nil
 }
 

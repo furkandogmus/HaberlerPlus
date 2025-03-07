@@ -2,7 +2,6 @@ package impl
 
 import (
 	"encoding/xml"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -55,19 +54,16 @@ func (h *HaberturkSource) FetchNews(categoryIndex int) ([]NewsItem, error) {
 	}
 	
 	if categoryIndex < 1 || categoryIndex > len(h.categories) {
-		fmt.Printf("Debug: Invalid category index: %d, returning empty results\n", categoryIndex)
 		return []NewsItem{}, nil
 	}
 
 	category := h.categories[categoryIndex-1]
 	feedURL, ok := h.feedURLs[category]
 	if !ok {
-		fmt.Printf("Debug: No feed URL for category: %s, returning empty results\n", category)
 		return []NewsItem{}, nil
 	}
 
-	fmt.Printf("Debug: Fetching RSS feed from URL: %s\n", feedURL)
-
+	
 	// Create HTTP client with timeout
 	client := &http.Client{
 		Timeout: 10 * time.Second,
@@ -76,33 +72,27 @@ func (h *HaberturkSource) FetchNews(categoryIndex int) ([]NewsItem, error) {
 	// Fetch the feed
 	resp, err := client.Get(feedURL)
 	if err != nil {
-		fmt.Printf("Debug: Error fetching feed: %v, returning empty results\n", err)
 		return []NewsItem{}, nil
 	}
 	defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		fmt.Printf("Debug: Error reading response body: %v, returning empty results\n", err)
 		return []NewsItem{}, nil
 	}
 
-	fmt.Printf("Debug: Received %d bytes of data\n", len(body))
-
+	
 	// Try to parse as RSS
 	var rss RSS
 	err = xml.Unmarshal(body, &rss)
 	if err != nil {
-		fmt.Printf("Debug: Failed to parse as RSS: %v\n", err)
 		return []NewsItem{}, nil
 	}
 
 	if len(rss.Channel.Items) == 0 {
-		fmt.Printf("Debug: No items found in RSS feed\n")
 		return []NewsItem{}, nil
 	}
 
-	fmt.Printf("Debug: Successfully parsed as RSS, found %d items\n", len(rss.Channel.Items))
 	
 	// Process RSS items
 	newsItems := make([]NewsItem, 0, min(len(rss.Channel.Items), 30))
@@ -125,11 +115,8 @@ func (h *HaberturkSource) FetchNews(categoryIndex int) ([]NewsItem, error) {
 			URL:   item.Link,
 		})
 		
-		if i < 3 {
-			fmt.Printf("Debug: Item %d: Title=%s, URL=%s\n", i, title, item.Link)
-		}
+		
 	}
 	
-	fmt.Printf("Debug: Found %d news items\n", len(newsItems))
 	return newsItems, nil
 }

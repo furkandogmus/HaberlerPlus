@@ -16,7 +16,6 @@ import (
 func main() {
 	showVersion := flag.Bool("v", false, "Versiyon bilgisini göster!")
 	showHelp := flag.Bool("h", false, "Yardım bilgisini göster!")
-	debugMode := flag.Bool("d", false, "Debug modunda çalıştır")
 	flag.Parse()
 
 	if *showVersion {
@@ -30,7 +29,6 @@ func main() {
 		fmt.Println("Seçenekler:")
 		fmt.Println("-h  yardım bilgisini verir.")
 		fmt.Println("-v  versiyon bilgisini verir.")
-		fmt.Println("-d  debug modunda çalıştırır.")
 		return
 	}
 
@@ -97,29 +95,19 @@ func main() {
 	}
 
 	// Display the news
-	fmt.Printf("%s%s - %s kategorisinden haberler:%s\n", 
-		utils.Green, selectedSource.Name(), categories[categoryNum-1], utils.Reset)
+	fmt.Printf("%s%s - %s kategorisinden haberler:%s\n", utils.Green, selectedSource.Name(), categories[categoryNum-1], utils.Reset)
 	
-	if *debugMode {
-		fmt.Printf("%sDebug: Kategori: %s, Kategori Numarası: %d%s\n", 
-			utils.Red, categories[categoryNum-1], categoryNum, utils.Reset)
-	}
 	
 	if len(newsItems) == 0 {
-		if *debugMode {
-			fmt.Printf("%sDebug: Haber bulunamadı.%s\n", utils.Red, utils.Reset)
-		} else {
-			fmt.Println("Bu kategoride haber bulunamadı.")
-		}
+		
+		
 		return
 	}
 
 	for _, item := range newsItems {
-		if *debugMode && item.Title == "Debug URL" {
-			fmt.Printf("%sDebug URL: %s%s\n", utils.Red, item.URL, utils.Reset)
-		} else {
+		
 			fmt.Printf("%s%s: %s", utils.Red, item.Title, utils.Reset)
 			fmt.Printf("%s%s%s\n", utils.Gray, item.URL, utils.Reset)
-		}
+		
 	}
-} 
+}

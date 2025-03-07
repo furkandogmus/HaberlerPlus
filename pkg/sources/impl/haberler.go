@@ -152,11 +152,6 @@ func (h *HaberlerComSource) FetchNews(categoryIndex int) ([]NewsItem, error) {
 		})
 	}
 
-	// Add debug information if no news items were found
-	if len(newsItems) == 0 {
-		fmt.Printf("Debug: Kategori: %s, Kategori Numarası: %d\n", category, categoryIndex)
-		fmt.Printf("Debug: Haber bulunamadı.\n")
-	}
 
 	return newsItems, nil
 }
