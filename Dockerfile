@@ -13,8 +13,6 @@ RUN go mod download
 # Copy the source code
 COPY . .
 
-# Verify the directory structure
-RUN ls -la && ls -la cmd/
 
 # Build the application
 RUN CGO_ENABLED=0 GOOS=linux go build -o /news cmd/news/main.go
