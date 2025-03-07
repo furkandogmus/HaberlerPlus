@@ -24,3 +24,6 @@ RUN apk --no-cache add ca-certificates
 
 # Copy the binary from the builder stage
 COPY --from=builder /news /usr/local/bin/news
+
+# Set the entrypoint
+ENTRYPOINT ["news"] 
