@@ -9,4 +9,13 @@ services:
     container_name: news
     stdin_open: true  # Keep STDIN open
     tty: true         # Allocate a pseudo-TTY
-    restart: "no"     # Don't restart automatically 
+    restart: "no"     # Don't restart automatically
+
+  # Example of running with predefined input (CNN Türk GÜNDEM)
+  cnnturk-gundem:
+    image: news
+    container_name: news-cnnturk-gundem
+    stdin_open: true
+    tty: false
+    restart: "no"
+    command: sh -c "printf '6\n1\n' | news" 

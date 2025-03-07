@@ -30,6 +30,12 @@ docker build -t news .
 docker run -it --rm news
 ```
 
+Otomatik seçim yapmak için (örneğin CNN Türk GÜNDEM kategorisi için):
+
+```bash
+printf "6\n1\n" | docker run -i --rm news
+```
+
 Veya Docker Hub'dan doğrudan çekebilirsiniz:
 
 ```bash

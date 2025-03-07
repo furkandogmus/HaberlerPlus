@@ -5,7 +5,7 @@ FROM golang:1.21-alpine AS builder
 WORKDIR /app
 
 # Copy go.mod and go.sum files
-COPY go.mod ./
+COPY go.mod go.sum ./
 
 # Download dependencies
 RUN go mod download
@@ -13,8 +13,11 @@ RUN go mod download
 # Copy the source code
 COPY . .
 
+# Verify the directory structure
+RUN ls -la && ls -la cmd/
+
 # Build the application
-RUN CGO_ENABLED=0 GOOS=linux go build -o /news ./cmd/news
+RUN CGO_ENABLED=0 GOOS=linux go build -o /news cmd/news/main.go
 
 # Final stage
 FROM alpine:latest
